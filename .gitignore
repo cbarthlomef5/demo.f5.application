@@ -1,7 +1,8 @@
-# Demo Folders
+# Demo Ignore Items
 python/
 python/*
 .terraform/
+*/.terraform.lock.*
 
 # Compiled source #
 ###################
@@ -236,7 +237,3 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-
-# Terraform lock file for Demo
-*/.terraform.lock.*
-
