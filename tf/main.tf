@@ -19,6 +19,10 @@ provider "aws" {
   profile                  = "default"
 }
 
+resource "random_id" "unique_id" {
+  byte_length = "8"
+}
+
 resource "aws_secretsmanager_secret" "bigip-password" {
   name = "mySecretId"
 }
@@ -28,9 +32,9 @@ resource "aws_secretsmanager_secret_version" "bigip-password" {
   secret_string = "BIGIP#Passw0rd"
 }
 
-resource "aws_key_pair" "caleb" {
-  key_name   = "caleb"
-  public_key = file("~/.ssh/id_rsa.pub")
+resource "aws_key_pair" "udf" {
+  key_name   = var.aws_key_pair_name
+  public_key = file(var.aws_key_pair_file)
 }
 
 resource "aws_vpc" "security" {
@@ -116,7 +120,7 @@ resource "aws_cloudformation_stack" "network" {
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
   disable_rollback = "true"
   parameters = {
-    uniqueString             = "cbarthlomeF5"
+    uniqueString             = "f5demo-${random_id.unique_id.hex}"
     vpcId                    = aws_vpc.security.id
     bigIpMgmtSubnetId01      = aws_subnet.management-a.id
     bigIpMgmtSubnetId02      = aws_subnet.management-b.id
@@ -135,10 +139,10 @@ resource "aws_cloudformation_stack" "network" {
     bigIpPeerAddr            = "10.1.1.11"
     restrictedSrcAddressMgmt = "10.1.0.0/16"
     restrictedSrcAddressApp  = "0.0.0.0/0"
-    provisionPublicIpMgmt    = "true"
+    provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
-    sshKey                   = "caleb"
-    cfeS3Bucket              = "c-barthlome-f5-bigip-high-availability-solution"
+    sshKey                   = "udf"
+    cfeS3Bucket              = "f5demo-${random_id.unique_id.hex}-bigip-high-availability-solution"
   }
 
   template_body = data.http.f5-cftv2-failover-existing-network.response_body

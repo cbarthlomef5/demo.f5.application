@@ -1,7 +1,7 @@
 resource "aws_instance" "ubuntu" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
-  key_name      = aws_key_pair.caleb.key_name
+  key_name      = aws_key_pair.udf.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.ubuntu_public.id
