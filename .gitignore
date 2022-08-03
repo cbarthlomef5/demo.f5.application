@@ -233,4 +233,4 @@ override.tf.json
 terraform.rc
 
 # Terraform lock file for Demo
-*.terraform.lock*
+.terraform.lock.hcl
