@@ -1,5 +1,5 @@
 variable "aws_key_pair_name" {
-  default = "caleb"
+  default = "udf"
 }
 
 variable "aws_key_pair_file" {

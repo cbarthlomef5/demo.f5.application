@@ -120,7 +120,7 @@ resource "aws_cloudformation_stack" "network" {
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
   disable_rollback = "true"
   parameters = {
-    uniqueString             = "f5demo-${random_id.unique_id.hex}"
+    uniqueString             = "f5demo"
     vpcId                    = aws_vpc.security.id
     bigIpMgmtSubnetId01      = aws_subnet.management-a.id
     bigIpMgmtSubnetId02      = aws_subnet.management-b.id
@@ -142,7 +142,7 @@ resource "aws_cloudformation_stack" "network" {
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
     sshKey                   = "udf"
-    cfeS3Bucket              = "f5demo-${random_id.unique_id.hex}-bigip-high-availability-solution"
+    cfeS3Bucket              = "f5demo-${random_id.unique_id.id}-bigip-high-availability-solution"
   }
 
   template_body = data.http.f5-cftv2-failover-existing-network.response_body
