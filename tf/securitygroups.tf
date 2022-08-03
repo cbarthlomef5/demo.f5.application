@@ -15,7 +15,7 @@ resource "aws_security_group" "ubuntu_bastion_host" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["${my_public_ip.value}/32"]
+    cidr_blocks = ["${data.external.myipaddr.result.ip}/32"]
   }
 
   egress {
