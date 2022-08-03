@@ -19,6 +19,8 @@ UDF Template: https://udf.f5.com/b/6c47bd30-b7c0-47ce-a8c9-db8d3dfa0f73#document
 1. Start UDF instance from UDF template
 2. Connect to UDF AWS Environment and subscribe to F5 product used in demo
     1. Use credentials provided from UDF deployment
+        * Credentials found on "Cloud Accounts" tab of UDF deployment
     2. Within AWS, navigate to AWS Marketplace
     3. Locate "Discover Products" within Marketplace page
     4. Search for and subscribe to "F5 BIG-IP BEST with IPI and Threat Campaigns (PAYG, 25Mbps)"
+3. 

@@ -234,3 +234,6 @@ terraform.rc
 
 # Terraform lock file for Demo
 */.terraform.lock.*
+
+# Python directory for Demo
+python/*
