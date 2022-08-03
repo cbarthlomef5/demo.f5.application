@@ -1,6 +1,7 @@
 # Demo Folders
-*/python/*
-*/.terraform/*
+python/
+python/*
+.terraform/
 
 # Compiled source #
 ###################
