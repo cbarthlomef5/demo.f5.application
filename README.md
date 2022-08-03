@@ -26,5 +26,9 @@ UDF Template: https://udf.f5.com/b/6c47bd30-b7c0-47ce-a8c9-db8d3dfa0f73#document
 3. Copy files from "aws" folder to "~/.aws" folder and update with correct API Key and Secret
     * Folder should be located in current user's home directory
     * API Key and Secret can be found on the "Cloud Accounts" tab of the UDF deployment
-4. Run Terraform Plan command to validate UDF environment is fully spun up and credentials are in appropriate location
-5. Run Terraform Apply to deploy AWS environment and CloudFormation Template
+4. Generate new private key or use existing key for SSH connections into AWS resources
+    * Save SSH key in Home directory as "~/.ssh/id_rsa.pub"
+    * Can update variables.tf file to point to SSH key if stored in different location or named differently
+5. Run Terraform Plan command to validate UDF environment is fully spun up and credentials are in appropriate location
+6. Run Terraform Apply to deploy AWS environment and CloudFormation Template
+7. Wait for CloudFormation Template to fully deploy

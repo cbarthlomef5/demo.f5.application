@@ -13,3 +13,7 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"] # Canonical
 }
+
+data "external" "myipaddr" {
+  program = ["bash", "-c", "curl -s 'https://api.ipify.org?format=json'"]
+}
