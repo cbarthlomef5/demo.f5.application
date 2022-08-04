@@ -1,7 +1,7 @@
 resource "aws_network_interface" "ubuntu_public" {
   subnet_id   = aws_subnet.external-a.id
   private_ips = [cidrhost(aws_subnet.external-a.cidr_block, 4)]
-  security_groups = [aws_security_group.ubuntu_bastion_host.id]
+  #security_groups = [aws_security_group.ubuntu_bastion_host-sg.id]
 
   tags = {
     Name = "ubuntu_public_network_interface"

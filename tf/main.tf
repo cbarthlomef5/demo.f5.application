@@ -34,9 +34,9 @@ resource "aws_secretsmanager_secret_version" "bigip-password" {
   secret_string = "BIGIP#Passw0rd"
 }
 
-resource "aws_key_pair" "udf" {
+resource "aws_key_pair" "demo" {
   key_name   = var.aws_key_pair_name
-  public_key = file(var.aws_key_pair_file)
+  public_key = file(lookup(var.aws_key_pair_file, "public"))
 }
 
 resource "aws_vpc" "security" {
@@ -116,7 +116,7 @@ resource "aws_subnet" "internal-b" {
 data "http" "f5-cftv2-failover-existing-network" {
   url = "https://raw.githubusercontent.com/F5Networks/f5-aws-cloudformation-v2/main/examples/failover/failover-existing-network.yaml"
 }
-
+/*
 resource "aws_cloudformation_stack" "network" {
   name         = "networking-stack"
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
@@ -139,13 +139,14 @@ resource "aws_cloudformation_stack" "network" {
     bigIpExternalVip01       = "10.1.5.12"
     bigIpExternalVip02       = "10.1.6.12"
     bigIpPeerAddr            = "10.1.1.11"
-    restrictedSrcAddressMgmt = "10.1.0.0/16"
+    restrictedSrcAddressMgmt = "10.0.0.0/8"
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
-    sshKey                   = "udf"
+    sshKey                   = aws_key_pair.demo.key_name
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"
   }
 
   template_body = data.http.f5-cftv2-failover-existing-network.response_body
 }
+*/

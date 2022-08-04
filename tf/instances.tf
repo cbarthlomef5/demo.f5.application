@@ -1,32 +1,7 @@
 resource "aws_instance" "ubuntu" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  key_name      = aws_key_pair.udf.key_name
-
-  user_data = <<EOF
-    #!/bin/bash
-
-    echo "Updating and cleaning system"
-    sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove && sudo apt-get autoclean
-
-    echo "Creating demo user"
-    sudo useradd -m -s /bin/bash demo
-    echo "demo:demo.F5.com" | sudo chpasswd
-
-    echo "Installing RDP client and GUI"
-    sudo apt install xrdp -y
-    sudo apt install xfce4 -y
-    sudo apt install xfce4-terminal -y
-
-    echo "Setting RDP params"
-    sudo sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce-session \n' /etc/xrdp/startwm.sh
-
-    echo "Updating local firewall for RDP"
-    sudo ufw allow 3389/tcp
-
-    echo "Restarting RDP service"
-    sudo /etc/init.d/xrdp restart
-  EOF
+  instance_type = lookup(var.aws_nginx_props, "itype")
+  key_name      = aws_key_pair.demo.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.ubuntu_public.id
@@ -41,34 +16,47 @@ resource "aws_instance" "ubuntu" {
   tags = {
     Name = "ubuntu_bastion_host"
   }
+
+  user_data = "${file("../ubuntu/bastion.sh")}"
+
+  connection {
+    type = "ssh"
+    user = "ubuntu"
+    password = ""
+    private_key = file(lookup(var.aws_key_pair_file, "private"))
+    host = self.public_ip
+  }
+
+  provisioner "file" {
+    source = "~/.ssh/demo_id_rsa"
+    destination = "/home/ubuntu/.ssh/id_rsa"
+  }
 }
 
-resource "aws_instance" "webserver01" {
-  ami = ""
-  instance_type = "t3.micro"
-  key_name      = aws_key_pair.udf.key_name
-
-  network_interface {
-    network_interface_id = aws_network_interface.webserver01.id
-    device_index         = 0
-  }
+resource "aws_instance" "webserver-aza" {
+  count = var.webserver_count
+  ami = lookup(var.aws_nginx_props, "ami")
+  instance_type = lookup(var.aws_nginx_props, "itype")
+  key_name      = aws_key_pair.demo.key_name
+  subnet_id = aws_subnet.internal-a.id
 
   tags = {
-    Name = "webserver01"
+    Name = "webserver-aza-${count.index+1}"
   }
+
+  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
 }
 
-resource "aws_instance" "webserver02" {
-  ami = ""
-  instance_type = "t3.micro"
-  key_name      = aws_key_pair.udf.key_name
-
-  network_interface {
-    network_interface_id = aws_network_interface.webserver02.id
-    device_index         = 0
-  }
+resource "aws_instance" "webserver-azb" {
+  count = var.webserver_count
+  ami = lookup(var.aws_nginx_props, "ami")
+  instance_type = lookup(var.aws_nginx_props, "itype")
+  key_name      = aws_key_pair.demo.key_name
+  subnet_id = aws_subnet.internal-b.id
 
   tags = {
-    Name = "webserver02"
+    Name = "webserver-azb-${count.index+1}"
   }
+
+  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
 }
