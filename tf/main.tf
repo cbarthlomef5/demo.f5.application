@@ -139,7 +139,7 @@ resource "aws_cloudformation_stack" "network" {
     bigIpExternalVip01       = "10.1.5.12"
     bigIpExternalVip02       = "10.1.6.12"
     bigIpPeerAddr            = "10.1.1.11"
-    restrictedSrcAddressMgmt = "10.1.0.0/16"
+    restrictedSrcAddressMgmt = "10.0.0.0/8"
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn

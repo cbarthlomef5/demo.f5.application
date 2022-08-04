@@ -7,6 +7,8 @@ variable "aws_key_pair_file" {
 }
 
 variable "aws_nginx_props" {
-  ami = "ami-0cea098ed2ac54925"
-  itype = "t2.micro"
+  default = {
+    ami = "ami-0cea098ed2ac54925"
+    itype = "t2.micro"
+  }
 }
