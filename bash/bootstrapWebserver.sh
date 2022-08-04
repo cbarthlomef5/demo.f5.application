@@ -8,3 +8,5 @@ yum autoclean -y
 
 echo "Install NGINX"
 yum install nginx -y
+amazon-linux-extras install nginx1 -y
+systemctl start nginx.service
