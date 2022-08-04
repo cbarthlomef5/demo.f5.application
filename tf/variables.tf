@@ -15,3 +15,7 @@ variable "aws_nginx_props" {
     itype = "t2.micro"
   }
 }
+
+variable "webserver_count" {
+  default = 1
+}

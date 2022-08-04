@@ -23,7 +23,7 @@ resource "aws_instance" "ubuntu" {
     type = "ssh"
     user = "ubuntu"
     password = ""
-    private_key = lookup(var.aws_key_pair_file, "private")
+    private_key = file(lookup(var.aws_key_pair_file, "private"))
     host = self.public_ip
   }
 
@@ -33,38 +33,30 @@ resource "aws_instance" "ubuntu" {
   }
 }
 
-resource "aws_instance" "webserver01" {
+resource "aws_instance" "webserver-aza" {
+  count = var.webserver_count
   ami = lookup(var.aws_nginx_props, "ami")
   instance_type = lookup(var.aws_nginx_props, "itype")
   key_name      = aws_key_pair.demo.key_name
-
-  network_interface {
-    network_interface_id = aws_network_interface.webserver01.id
-    device_index         = 0
-  }
+  subnet_id = aws_subnet.internal-a.id
 
   tags = {
-    Name = "webserver01"
+    Name = "webserver-aza-${count.index+1}"
   }
 
-  user_data = <<EOF
-    #!/bin/bash
-
-    echo "Updating and cleaning system"
-    EOF
+  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
 }
 
-resource "aws_instance" "webserver02" {
+resource "aws_instance" "webserver-azb" {
+  count = var.webserver_count
   ami = lookup(var.aws_nginx_props, "ami")
   instance_type = lookup(var.aws_nginx_props, "itype")
   key_name      = aws_key_pair.demo.key_name
-
-  network_interface {
-    network_interface_id = aws_network_interface.webserver02.id
-    device_index         = 0
-  }
+  subnet_id = aws_subnet.internal-b.id
 
   tags = {
-    Name = "webserver02"
+    Name = "webserver-azb-${count.index+1}"
   }
+
+  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
 }
