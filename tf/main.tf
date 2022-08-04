@@ -34,9 +34,9 @@ resource "aws_secretsmanager_secret_version" "bigip-password" {
   secret_string = "BIGIP#Passw0rd"
 }
 
-resource "aws_key_pair" "udf" {
+resource "aws_key_pair" "demo" {
   key_name   = var.aws_key_pair_name
-  public_key = file(var.aws_key_pair_file)
+  public_key = file(lookup(var.aws_key_pair_file, "public"))
 }
 
 resource "aws_vpc" "security" {
@@ -143,7 +143,7 @@ resource "aws_cloudformation_stack" "network" {
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
-    sshKey                   = "udf"
+    sshKey                   = aws_key_pair.demo.key_name
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"
   }
 

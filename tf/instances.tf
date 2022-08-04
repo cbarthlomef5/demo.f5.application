@@ -1,7 +1,7 @@
 resource "aws_instance" "ubuntu" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  key_name      = aws_key_pair.udf.key_name
+  instance_type = lookup(var.aws_nginx_props, "itype")
+  key_name      = aws_key_pair.demo.key_name
 
   user_data = <<EOF
     #!/bin/bash
@@ -46,7 +46,7 @@ resource "aws_instance" "ubuntu" {
 resource "aws_instance" "webserver01" {
   ami = lookup(var.aws_nginx_props, "ami")
   instance_type = lookup(var.aws_nginx_props, "itype")
-  key_name      = aws_key_pair.udf.key_name
+  key_name      = aws_key_pair.demo.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.webserver01.id
@@ -56,12 +56,18 @@ resource "aws_instance" "webserver01" {
   tags = {
     Name = "webserver01"
   }
+
+  user_data = <<EOF
+    #!/bin/bash
+
+    echo "Updating and cleaning system"
+    EOF
 }
 
 resource "aws_instance" "webserver02" {
   ami = lookup(var.aws_nginx_props, "ami")
   instance_type = lookup(var.aws_nginx_props, "itype")
-  key_name      = aws_key_pair.udf.key_name
+  key_name      = aws_key_pair.demo.key_name
 
   network_interface {
     network_interface_id = aws_network_interface.webserver02.id
