@@ -3,6 +3,11 @@ resource "aws_eip" "ubuntu" {
   vpc      = true
 }
 
+resource "aws_eip" "ec2_bastion" {
+  network_interface = "${aws_network_interface.ec2_bastion_public.id}"
+  vpc      = true
+}
+
 resource "aws_eip" "ngw1" {
   vpc      = true
 }

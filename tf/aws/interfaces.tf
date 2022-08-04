@@ -1,7 +1,6 @@
 resource "aws_network_interface" "ubuntu_public" {
   subnet_id   = aws_subnet.external-a.id
   private_ips = [cidrhost(aws_subnet.external-a.cidr_block, 4)]
-  #security_groups = [aws_security_group.ubuntu_bastion_host-sg.id]
 
   tags = {
     Name = "ubuntu_public_network_interface"
@@ -17,20 +16,20 @@ resource "aws_network_interface" "ubuntu_private" {
   }
 }
 
-resource "aws_network_interface" "webserver01" {
-  subnet_id   = aws_subnet.internal-a.id
-  private_ips = [cidrhost(aws_subnet.internal-a.cidr_block, 4)]
+resource "aws_network_interface" "ec2_bastion_public" {
+  subnet_id   = aws_subnet.external-a.id
+  private_ips = [cidrhost(aws_subnet.external-a.cidr_block, 5)]
 
   tags = {
-    Name = "webserver01_network_interface"
+    Name = "ec2_bastion_public_network_interface"
   }
 }
 
-resource "aws_network_interface" "webserver02" {
-  subnet_id   = aws_subnet.internal-b.id
-  private_ips = [cidrhost(aws_subnet.internal-b.cidr_block, 4)]
+resource "aws_network_interface" "ec2_bastion_private" {
+  subnet_id   = aws_subnet.management-a.id
+  private_ips = [cidrhost(aws_subnet.management-a.cidr_block, 5)]
 
   tags = {
-    Name = "webserver02_network_interface"
+    Name = "ec2_bastion_private_network_interface"
   }
 }
