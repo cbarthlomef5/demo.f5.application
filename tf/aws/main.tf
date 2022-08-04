@@ -1,12 +1,3 @@
-resource "aws_secretsmanager_secret" "bigip-password" {
-  name = "mySecretId"
-}
-
-resource "aws_secretsmanager_secret_version" "bigip-password" {
-  secret_id     = aws_secretsmanager_secret.bigip-password.id
-  secret_string = "BIGIP#Passw0rd"
-}
-
 resource "aws_key_pair" "demo" {
   key_name   = var.aws_key_pair_name
   public_key = file(lookup(var.aws_key_pair_file, "public"))

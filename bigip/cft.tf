@@ -1,7 +1,7 @@
 data "http" "f5-cftv2-failover-existing-network" {
   url = "https://raw.githubusercontent.com/F5Networks/f5-aws-cloudformation-v2/main/examples/failover/failover-existing-network.yaml"
 }
-/*
+
 resource "aws_cloudformation_stack" "network" {
   name         = "networking-stack"
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
@@ -34,4 +34,3 @@ resource "aws_cloudformation_stack" "network" {
 
   template_body = data.http.f5-cftv2-failover-existing-network.response_body
 }
-*/
