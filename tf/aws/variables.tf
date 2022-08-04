@@ -9,11 +9,16 @@ variable "aws_key_pair_file" {
   }
 }
 
-variable "aws_nginx_props" {
-  default = {
-    ami = "ami-0cea098ed2ac54925"
-    itype = "t2.micro"
-  }
+variable "aws_instance_size" {
+  default = "t2.micro"
+}
+
+variable "aws_ec2_ami" {
+  default = "ami-0cea098ed2ac54925"
+}
+
+variable "windows_bastion_ami" {
+  default = "ami-01f14dc60171d8d7b"
 }
 
 variable "webserver_count" {

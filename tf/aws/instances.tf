@@ -1,6 +1,6 @@
 resource "aws_instance" "ubuntu" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = lookup(var.aws_nginx_props, "itype")
+  instance_type = var.aws_instance_size
   key_name      = aws_key_pair.demo.key_name
 
   network_interface {
@@ -39,25 +39,25 @@ resource "aws_instance" "ubuntu" {
   }
 }
 
-resource "aws_instance" "ec2_bastion" {
-  ami = lookup(var.aws_nginx_props, "ami")
-  instance_type = lookup(var.aws_nginx_props, "itype")
+resource "aws_instance" "windows_bastion" {
+  ami = var.windows_bastion_ami
+  instance_type = var.aws_instance_size
   key_name      = aws_key_pair.demo.key_name
 
   network_interface {
-    network_interface_id = aws_network_interface.ec2_bastion_public.id
+    network_interface_id = aws_network_interface.windows_bastion_public.id
     device_index         = 0
   }
 
   network_interface {
-    network_interface_id = aws_network_interface.ec2_bastion_private.id
+    network_interface_id = aws_network_interface.windows_bastion_private.id
     device_index         = 1
   }
 
   tags = {
-    Name = "ec2_bastion_host"
+    Name = "windows_bastion_host"
   }
-
+/*
   user_data = "${file("../bash/ec2Bastion.sh")}"
 
   connection {
@@ -78,12 +78,13 @@ resource "aws_instance" "ec2_bastion" {
       "chmod 600 /home/ec2-user/.ssh/id_rsa"
     ]
   }
+  */
 }
 
 resource "aws_instance" "webserver-aza" {
   count = var.webserver_count
-  ami = lookup(var.aws_nginx_props, "ami")
-  instance_type = lookup(var.aws_nginx_props, "itype")
+  ami = var.aws_ec2_ami
+  instance_type = var.aws_instance_size
   key_name      = aws_key_pair.demo.key_name
   subnet_id = aws_subnet.internal-a.id
 
@@ -96,8 +97,8 @@ resource "aws_instance" "webserver-aza" {
 
 resource "aws_instance" "webserver-azb" {
   count = var.webserver_count
-  ami = lookup(var.aws_nginx_props, "ami")
-  instance_type = lookup(var.aws_nginx_props, "itype")
+  ami = var.aws_ec2_ami
+  instance_type = var.aws_instance_size
   key_name      = aws_key_pair.demo.key_name
   subnet_id = aws_subnet.internal-b.id
 
