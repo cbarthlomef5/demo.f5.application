@@ -17,7 +17,7 @@ resource "aws_instance" "ubuntu" {
     Name = "ubuntu_bastion_host"
   }
 
-  user_data = "${file("../ubuntu/bastion.sh")}"
+  user_data = "${file("../bash/bastion.sh")}"
 
   connection {
     type = "ssh"
@@ -33,7 +33,9 @@ resource "aws_instance" "ubuntu" {
   }
 
   provisioner "remote-exec" {
-    script = "chmod 600 ~/.ssh/id_rsa"
+    inline = [
+      "chmod 600 /home/ubuntu/.ssh/id_rsa"
+    ]
   }
 }
 
@@ -48,7 +50,7 @@ resource "aws_instance" "webserver-aza" {
     Name = "webserver-aza-${count.index+1}"
   }
 
-  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
+  user_data = "${file("../bash/bootstrapWebserver.sh")}"
 }
 
 resource "aws_instance" "webserver-azb" {
@@ -62,5 +64,5 @@ resource "aws_instance" "webserver-azb" {
     Name = "webserver-azb-${count.index+1}"
   }
 
-  user_data = "${file("../ubuntu/bootstrapWebserver.sh")}"
+  user_data = "${file("../bash/bootstrapWebserver.sh")}"
 }

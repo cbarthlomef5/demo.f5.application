@@ -1,3 +1,12 @@
 module "aws_infrastructure" {
-    source = "./tf/aws"
+    source = "./aws"
 }
+/*
+module "bipg_setup" {
+    source = "./bigip"
+
+    depends_on = [
+      module.aws_infrastructure
+    ]
+}
+*/

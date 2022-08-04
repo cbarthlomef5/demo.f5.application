@@ -1,3 +1,9 @@
+resource "random_string" "unique_id" {
+  length = 8
+  special = false
+  upper = false
+}
+
 data "http" "f5-cftv2-failover-existing-network" {
   url = "https://raw.githubusercontent.com/F5Networks/f5-aws-cloudformation-v2/main/examples/failover/failover-existing-network.yaml"
 }
@@ -28,7 +34,7 @@ resource "aws_cloudformation_stack" "network" {
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
-    sshKey                   = aws_key_pair.demo.key_name
+    sshKey                   = "demo"
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"
   }
 
