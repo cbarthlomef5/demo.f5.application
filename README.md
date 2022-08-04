@@ -3,9 +3,9 @@
 Steps to perform demo converting Cloud Failover Extention (CFE) deployed via CloudFormation Template (CFT) from Public facing to Private facing
 
 # Resources
-CFE: https://clouddocs.f5.com/products/extensions/f5-cloud-failover/latest/userguide/overview.html
-CFT: https://github.com/F5Networks/f5-aws-cloudformation-v2/tree/main/examples/failover 
-UDF Template: https://udf.f5.com/b/6c47bd30-b7c0-47ce-a8c9-db8d3dfa0f73#documentation
+* CFE: https://clouddocs.f5.com/products/extensions/f5-cloud-failover/latest/userguide/overview.html
+* CFT: https://github.com/F5Networks/f5-aws-cloudformation-v2/tree/main/examples/failover 
+* UDF Template: https://udf.f5.com/b/6c47bd30-b7c0-47ce-a8c9-db8d3dfa0f73#documentation
 
 
 # Demo Requirements

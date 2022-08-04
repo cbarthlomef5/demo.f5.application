@@ -44,8 +44,8 @@ resource "aws_instance" "ubuntu" {
 }
 
 resource "aws_instance" "webserver01" {
-  ami = ""
-  instance_type = "t3.micro"
+  ami = lookup(var.aws_nginx_props, "ami")
+  instance_type = lookup(var.aws_nginx_props, "itype")
   key_name      = aws_key_pair.udf.key_name
 
   network_interface {
@@ -59,8 +59,8 @@ resource "aws_instance" "webserver01" {
 }
 
 resource "aws_instance" "webserver02" {
-  ami = ""
-  instance_type = "t3.micro"
+  ami = lookup(var.aws_nginx_props, "ami")
+  instance_type = lookup(var.aws_nginx_props, "itype")
   key_name      = aws_key_pair.udf.key_name
 
   network_interface {
