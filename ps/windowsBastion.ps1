@@ -10,6 +10,7 @@ Set-ItemProperty -Path HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
 Restart-Service -Name wuauserv -Force
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 
 # Start the sshd service
 Start-Service sshd

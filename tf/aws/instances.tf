@@ -65,9 +65,10 @@ resource "aws_instance" "windows_bastion" {
     type = "ssh"
     user = "windowsdemo"
     password = "Wind0wsS3rverSecure!"
-    #private_key = file(lookup(var.aws_key_pair_file, "private"))
+    private_key = file(lookup(var.aws_key_pair_file, "private"))
     host = self.public_ip
     target_platform	= "windows"
+    script_path = "c:/windows/temp/terraform_%RAND%.ps1"
   } 
 
   provisioner "remote-exec" {
