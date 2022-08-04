@@ -1,6 +1,6 @@
 <powershell>
 # Create new local user and add to administrator group
-$password = "Wind0wS3rverSecure!" | ConvertTo-SecureString -AsPlainText -Force
+$password = "Wind0wsS3rverSecure!" | ConvertTo-SecureString -AsPlainText -Force
 $username = "windowsdemo"
 
 New-LocalUser $username -Password $password -FullName "demo f5"

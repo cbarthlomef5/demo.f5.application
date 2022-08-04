@@ -63,15 +63,21 @@ resource "aws_instance" "windows_bastion" {
 
   connection {
     type = "ssh"
-    user = "Administrator"
-    password = "${rsadecrypt(self.password_data,file("${aws_key_pair.demo.key_name}"))}"
+    user = "windowsdemo"
+    password = "Wind0wsS3rverSecure!"
     private_key = file(lookup(var.aws_key_pair_file, "private"))
     host = self.public_ip
   } 
 
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir C:/Users/windowsdemo/.ssh"
+    ]
+  }
+
   provisioner "file" {
     source = "~/.ssh/demo_id_rsa"
-    destination = "C:\\Users\\windowsdemo\\.ssh\\id_rsa"
+    destination = "C:/Users/windowsdemo/.ssh/id_rsa"
   }
 }
 
