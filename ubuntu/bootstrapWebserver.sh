@@ -1,7 +1,10 @@
 #!/bin/bash
 
 echo "Updating and cleaning system"
-apt-get update
-apt-get upgrade -y
-apt-get autoremove
-apt-get autoclean
+yum update -y
+yum upgrade -y
+yum autoremove -y
+yum autoclean -y
+
+echo "Install NGINX"
+yum install nginx -y
