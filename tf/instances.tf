@@ -31,6 +31,10 @@ resource "aws_instance" "ubuntu" {
     source = "~/.ssh/demo_id_rsa"
     destination = "/home/ubuntu/.ssh/id_rsa"
   }
+
+  provisioner "remote-exec" {
+    script = "chmod 600 ~/.ssh/id_rsa"
+  }
 }
 
 resource "aws_instance" "webserver-aza" {

@@ -11,6 +11,9 @@ apt install xrdp -y
 apt install xfce4 -y
 apt install xfce4-terminal -y
 
+echo "Updating password for Ubuntu"
+echo "ubuntu:demo.F5.com" | chpasswd
+
 echo "Setting RDP params"
 sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce-session \n' /etc/xrdp/startwm.sh
 
