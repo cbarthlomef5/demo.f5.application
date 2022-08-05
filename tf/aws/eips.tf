@@ -1,8 +1,3 @@
-resource "aws_eip" "ubuntu" {
-  network_interface = aws_network_interface.ubuntu_public.id
-  vpc      = true
-}
-
 resource "aws_eip" "windows_bastion" {
   network_interface = aws_network_interface.windows_bastion_public.id
   vpc      = true

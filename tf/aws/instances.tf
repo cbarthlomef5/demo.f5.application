@@ -1,44 +1,3 @@
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.aws_instance_size
-  key_name      = aws_key_pair.demo.key_name
-
-  network_interface {
-    network_interface_id = aws_network_interface.ubuntu_public.id
-    device_index         = 0
-  }
-
-  network_interface {
-    network_interface_id = aws_network_interface.ubuntu_private.id
-    device_index         = 1
-  }
-
-  tags = {
-    Name = "ubuntu_bastion_host"
-  }
-
-  user_data = "${file("../bash/ubuntuBastion.sh")}"
-
-  connection {
-    type = "ssh"
-    user = "ubuntu"
-    password = ""
-    private_key = file(lookup(var.aws_key_pair_file, "private"))
-    host = self.public_ip
-  }
-
-  provisioner "file" {
-    source = "~/.ssh/demo_id_rsa"
-    destination = "/home/ubuntu/.ssh/id_rsa"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "chmod 600 /home/ubuntu/.ssh/id_rsa"
-    ]
-  }
-}
-
 resource "aws_instance" "windows_bastion" {
   ami = var.windows_bastion_ami
   instance_type = var.aws_instance_size
@@ -59,27 +18,21 @@ resource "aws_instance" "windows_bastion" {
     Name = "windows_bastion_host"
   } 
 
-  user_data = "${file("../ps/windowsBastion.ps1")}"
+  user_data = "${data.template_file.windows_bastion_user_data.rendered}"
 
   connection {
     type = "ssh"
     user = "windowsdemo"
     password = "Wind0wsS3rverSecure!"
-    private_key = file(lookup(var.aws_key_pair_file, "private"))
     host = self.public_ip
-    target_platform	= "windows"
-    script_path = "c:/windows/temp/terraform_%RAND%.ps1"
+    #private_key = file("~/.ssh/demo_id_rsa")
+    target_platform = "windows"
+    agent = false
   } 
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir C:/Users/windowsdemo/.ssh"
-    ]
-  }
 
   provisioner "file" {
     source = "~/.ssh/demo_id_rsa"
-    destination = "C:/Users/windowsdemo/.ssh/id_rsa"
+    destination = "C:\\Users/windowsdemo\\.ssh\\id_rsa"
   }
 }
 
