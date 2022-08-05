@@ -27,6 +27,6 @@ resource "aws_route_table_association" "management_a" {
 }
 
 resource "aws_route_table_association" "management_b" {
-  subnet_id      = aws_subnet.management-a.id
+  subnet_id      = aws_subnet.management-b.id
   route_table_id = aws_route_table.security_vpc_ngw_rt.id
 }

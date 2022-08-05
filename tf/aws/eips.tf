@@ -9,6 +9,6 @@ resource "aws_eip" "windows_bastion" {
 resource "aws_eip" "ngw" {
   vpc      = true
   tags = {
-    "Name" = "ngw"
+    "Name" = "ngw_eip"
   }
 }

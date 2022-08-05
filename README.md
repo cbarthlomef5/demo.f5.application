@@ -28,7 +28,7 @@ Steps to perform demo converting Cloud Failover Extention (CFE) deployed via Clo
     * Folder should be located in current user's home directory
     * API Key and Secret can be found on the "Cloud Accounts" tab of the UDF deployment
 4. Generate new private key for SSH connections into AWS resources
-    * <b>Strongly recomended to use a key not used for other purposes! Key will be copied to Bastion host for Demo purposes</b>
+    * <b>Strongly recomended to use a key not used for other purposes! Key will be copied to Bastion host for Demo purposes! Use ssh-keygen or Putty to create new keypair</b>
     * Save SSH key in Home directory as "~/.ssh/demo_id_rsa.pub"
     * Can update variables.tf file to point to SSH key if stored in different location or named differently
 5. Run Terraform Plan command to validate UDF environment is fully spun up and credentials are in appropriate location
