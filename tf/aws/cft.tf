@@ -30,11 +30,13 @@ resource "aws_cloudformation_stack" "network" {
     bigIpExternalVip01       = "10.1.5.12"
     bigIpExternalVip02       = "10.1.6.12"
     bigIpPeerAddr            = "10.1.1.11"
-    restrictedSrcAddressMgmt = "0.0.0.0/0"
+    cfeVipTag                = "10.1.3.110,10.1.4.110"
+    restrictedSrcAddressMgmt = "10.0.0.0/8"
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
     sshKey                   = "demo"
+    cfeTag                   = "bigip_high_availability_solution"
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"
   }
 
