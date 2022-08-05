@@ -19,21 +19,6 @@ resource "aws_instance" "windows_bastion" {
   } 
 
   user_data = "${data.template_file.windows_bastion_user_data.rendered}"
-
-  connection {
-    type = "ssh"
-    user = "windowsdemo"
-    password = "Wind0wsS3rverSecure!"
-    host = self.public_ip
-    #private_key = file("~/.ssh/demo_id_rsa")
-    target_platform = "windows"
-    agent = false
-  } 
-
-  provisioner "file" {
-    source = "~/.ssh/demo_id_rsa"
-    destination = "C:\\Users/windowsdemo\\.ssh\\id_rsa"
-  }
 }
 
 resource "aws_instance" "webserver-aza" {
