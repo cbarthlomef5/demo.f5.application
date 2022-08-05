@@ -1,5 +1,5 @@
 resource "random_string" "unique_id" {
-  length = 8
+  length = 16
   special = false
   upper = false
 }
@@ -30,9 +30,9 @@ resource "aws_cloudformation_stack" "network" {
     bigIpExternalVip01       = "10.1.5.12"
     bigIpExternalVip02       = "10.1.6.12"
     bigIpPeerAddr            = "10.1.1.11"
-    restrictedSrcAddressMgmt = "10.0.0.0/8"
+    restrictedSrcAddressMgmt = "0.0.0.0/0"
     restrictedSrcAddressApp  = "0.0.0.0/0"
-    provisionPublicIpMgmt    = "true"
+    provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
     sshKey                   = "demo"
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"

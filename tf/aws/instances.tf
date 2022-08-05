@@ -30,6 +30,7 @@ resource "aws_instance" "webserver-aza" {
 
   tags = {
     Name = "webserver-aza-${count.index+1}"
+    app = "nginx_web_server"
   }
 
   user_data = "${file("../bash/bootstrapWebserver.sh")}"
@@ -44,6 +45,7 @@ resource "aws_instance" "webserver-azb" {
 
   tags = {
     Name = "webserver-azb-${count.index+1}"
+    app = "nginx_web_server"
   }
 
   user_data = "${file("../bash/bootstrapWebserver.sh")}"
