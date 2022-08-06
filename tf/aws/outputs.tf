@@ -6,6 +6,6 @@ output "webserver_pool_aza" {
   value = aws_instance.webserver-aza[*].private_ip
 }
 
-output "webserver_pool_azb" {
-  value = aws_instance.webserver-azb[*].private_ip
+output "webserver_pool" {
+  value = concat(aws_instance.webserver-aza[*].private_ip, aws_instance.webserver-azb[*].private_ip)
 }

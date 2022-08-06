@@ -1,0 +1,1 @@
+powerShell -windowstyle hidden "C:\temp\logonScript.ps1"

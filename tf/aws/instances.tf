@@ -33,7 +33,7 @@ resource "aws_instance" "webserver-aza" {
     app = "nginx_web_server"
   }
 
-  user_data = "${file("../bash/bootstrapWebserver.sh")}"
+  user_data = file("../bash/bootstrapWebserver.sh")
 }
 
 resource "aws_instance" "webserver-azb" {
