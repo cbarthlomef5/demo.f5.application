@@ -2,6 +2,9 @@ resource "random_string" "unique_id" {
   length = 16
   special = false
   upper = false
+  keepers = {
+    "aws_key_pair_name" = var.aws_key_pair_name
+  }
 }
 
 data "http" "f5-cftv2-failover-existing-network" {
@@ -11,7 +14,7 @@ data "http" "f5-cftv2-failover-existing-network" {
 resource "aws_cloudformation_stack" "network" {
   name         = "networking-stack"
   capabilities = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
-  disable_rollback = "true"
+  disable_rollback = "false"
   parameters = {
     uniqueString             = "f5demo"
     vpcId                    = aws_vpc.security.id
@@ -35,7 +38,7 @@ resource "aws_cloudformation_stack" "network" {
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
-    sshKey                   = "demo"
+    sshKey                   = var.aws_key_pair_name
     cfeTag                   = "bigip_high_availability_solution"
     cfeS3Bucket              = "f5demo-${random_string.unique_id.id}-bigip-high-availability-solution"
   }

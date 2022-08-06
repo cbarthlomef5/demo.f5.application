@@ -1,1 +1,6 @@
-powerShell -windowstyle hidden "C:\temp\logonScript.ps1"
+if exist %homedrive%%homepath%\.ssh\ (
+    copy "C:\temp\id_rsa" "%homedrive%%homepath%\.ssh\id_rsa"
+) else (
+    mkdir "%homedrive%%homepath%\.ssh"
+    copy "C:\temp\id_rsa" "%homedrive%%homepath%\.ssh\id_rsa"
+)
