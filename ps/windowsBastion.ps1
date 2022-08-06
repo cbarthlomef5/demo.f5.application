@@ -25,6 +25,6 @@ New-SmbShare -Name "Netlogon" -Path "C:\Windows\System32\Repl\Imports\Scripts"
 $ComputerName = $env:COMPUTERNAME
 $Computer = [adsi]"WinNT://$ComputerName"
 $user = $Computer.psbase.Children.Find($username)
-$user.LoginScript = "logon.cmd"
+$user.LoginScript = ".\logon.cmd"
 $user.SetInfo()
 </powershell>
