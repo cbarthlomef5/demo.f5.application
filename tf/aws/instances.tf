@@ -18,7 +18,7 @@ resource "aws_instance" "windows_bastion" {
     Name = "windows_bastion_host"
   } 
 
-  user_data = "${data.template_file.windows_bastion_user_data.rendered}"
+  user_data = data.template_file.windows_bastion_user_data.rendered
 }
 
 resource "aws_instance" "webserver-aza" {
