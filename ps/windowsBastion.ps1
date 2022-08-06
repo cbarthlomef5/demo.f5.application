@@ -18,8 +18,8 @@ New-Item -Path 'C:\temp\id_rsa' -ItemType File -Value "${certificate}" -Force
 
 # Create netlogon scripts path and copy file to path
 New-Item -Path 'C:\Windows\System32\Repl\Imports\Scripts' -ItemType Directory
-New-Item -Path'C:\Windows\System32\Repl\Imports\Scripts\logon.cmd' -ItemType File -Value "${logonScriptCMD}" -Force
-New-SmbShare -Name "Netlogon" -Path "C:\Windows\System32\Repl\Imports\Scripts" 
+New-Item -Path 'C:\Windows\System32\Repl\Imports\Scripts\logon.cmd' -ItemType File -Value "${logonScriptCMD}" -Force
+New-SmbShare -Name "Netlogon" -Path "C:\Windows\System32\Repl\Imports\Scripts"
 
 # Set user logon script
 $ComputerName = $env:COMPUTERNAME
