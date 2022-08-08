@@ -9,3 +9,7 @@ output "webserver_pool" {
 output "management_subnet_a_id" {
   value = aws_subnet.management-a.id
 }
+
+output "external_subnet_a_id" {
+  value = aws_subnet.external-a.id
+}

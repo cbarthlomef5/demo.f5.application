@@ -2,6 +2,10 @@ variable "management_subnet" {
   type = string
 }
 
+variable "external_subnet" {
+  type = string
+}
+
 variable "bigip_mgmt_ip" {
   type = string
 }
