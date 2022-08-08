@@ -5,9 +5,9 @@ module "aws_infrastructure" {
 module "bipg_setup" {
     source = "./modules/bigip"
 
-    management_subnet = mod_aws_management_subnet_a_id
-    bigip_mgmt_ip = mod_aws_bigip_mgmip_a
-    bigip_webserver_pool = mod_aws_webserver_pool
+    management_subnet = module.aws_infrastructure.management_subnet_a_id
+    bigip_mgmt_ip = module.aws_infrastructure.bigip_mgmip_a
+    bigip_webserver_pool = module.aws_infrastructure.webserver_pool
 
     depends_on = [
       module.aws_infrastructure
