@@ -1,7 +1,7 @@
 module "aws_infrastructure" {
     source = "./aws"
 }
-/*
+
 module "bipg_setup" {
     source = "./bigip"
 
@@ -9,4 +9,3 @@ module "bipg_setup" {
       module.aws_infrastructure
     ]
 }
-*/
