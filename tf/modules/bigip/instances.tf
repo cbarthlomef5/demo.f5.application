@@ -8,5 +8,5 @@ resource "aws_instance" "bigip_terraform_server" {
     Name = "bigip_terraform_server"
   } 
 
-  #user_data = data.template_file.windows_bastion_user_data.rendered
+  user_data = file("../bash/bootstrapTerraform.sh")
 }
