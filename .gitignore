@@ -3,6 +3,7 @@ python/
 python/*
 .terraform/
 */.terraform.lock.*
+tmp/
 
 # Compiled source #
 ###################

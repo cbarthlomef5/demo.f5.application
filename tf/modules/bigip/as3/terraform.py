@@ -5,5 +5,5 @@
 import subprocess
 
 # Execute Terraform commands
-subprocess.run(['terraform', 'init', '-upgrade'])
-subprocess.run(['terraform', 'apply' '-auto-approve'])
+subprocess.Popen(['terraform', 'init', '-upgrade'])
+subprocess.Popen(['terraform', 'apply', '-auto-approve'])
