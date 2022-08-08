@@ -2,7 +2,7 @@ resource "aws_instance" "bigip_terraform_server" {
   ami = "ami-0cea098ed2ac54925"
   instance_type = "t2.micro"
   key_name      = "demo"
-  subnet_id = module.mod_aws_management_subnet_a_id
+  subnet_id = ""
 
   tags = {
     Name = "bigip_terraform_server"
