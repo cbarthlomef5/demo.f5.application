@@ -7,22 +7,22 @@
         "class": "ADC",
         "schemaVersion": "3.0.0",
         "id": "example-declaration-01",
-        "label": "Sample 1",
+        "label": "Demo",
         "remark": "Simple HTTP application with round robin pool",
-        "Sample_01": {
+        "demo_partition": {
             "class": "Tenant",
             "defaultRouteDomain": 0,
             "Application_1": {
                 "class": "Application",
                 "template": "http",
-                "serviceMain": {
+                "demo_app_aws_ip_range-vs": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "10.1.3.110"
                     ],
                     "pool": "web_pool_app1"
                 },
-                "web_pool": {
+                "web_pool_app1": {
                     "class": "Pool",
                     "monitors": [
                         "http"
@@ -34,7 +34,7 @@
                 }
             },
 
-            "Application_2": {
+            "demo_app_alien_ip_range-vs": {
                 "class": "Application",
                 "template": "http",
                 "serviceMain": {
@@ -44,7 +44,7 @@
                     ],
                     "pool": "web_pool_app2"
                 },
-                "web_pool": {
+                "web_pool_app2": {
                     "class": "Pool",
                     "monitors": [
                         "http"
