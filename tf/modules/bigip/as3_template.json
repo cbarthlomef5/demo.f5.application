@@ -15,7 +15,7 @@
             "Application_1": {
                 "class": "Application",
                 "template": "http",
-                "demo_app_aws_ip_range-vs": {
+                "serviceMain": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "10.1.3.110"
@@ -34,7 +34,7 @@
                 }
             },
 
-            "demo_app_alien_ip_range-vs": {
+            "serviceMain": {
                 "class": "Application",
                 "template": "http",
                 "serviceMain": {

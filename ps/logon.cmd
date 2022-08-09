@@ -1,3 +1,5 @@
+sleep 60
+
 if exist %homedrive%%homepath%\.ssh\ (
     copy C:\temp\id_rsa %homedrive%%homepath%\.ssh\id_rsa
 ) else (

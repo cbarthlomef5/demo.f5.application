@@ -1,6 +1,6 @@
 resource "aws_instance" "windows_bastion" {
   ami = var.windows_bastion_ami
-  instance_type = var.aws_instance_size
+  instance_type = "t2.medium"
   key_name      = aws_key_pair.demo.key_name
   get_password_data = true
 
