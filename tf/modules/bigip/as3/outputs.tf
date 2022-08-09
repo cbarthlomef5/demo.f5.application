@@ -6,10 +6,11 @@ output "bigip_a_mgmt_ip" {
   value = data.aws_cloudformation_stack.bigip_a_mgmt_ip.outputs["bigIpInstanceMgmtPrivateIp01"]
 }
 
-output "secret_id_test" {
-  value = data.aws_secretsmanager_secret.by_name.arn
+output "secret_id_arn" {
+  value = data.aws_secretsmanager_secret.bigip_pw_by_name.arn
 }
 
-output "secret_version_test" {
-  value = local.bigip_pw
+output "bigip_pw_output" {
+  value = data.aws_secretsmanager_secret_version.bigip_pw_secret_current_version.secret_string
+  sensitive = true
 }

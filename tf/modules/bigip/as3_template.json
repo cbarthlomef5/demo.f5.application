@@ -43,6 +43,16 @@
                         "192.168.50.110"
                     ],
                     "pool": "web_pool"
+                },
+                "web_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [{
+                        "servicePort": 80,
+                        "serverAddresses": ${webserver_pool_members}
+                    }]
                 }
             }
         }
