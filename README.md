@@ -12,6 +12,7 @@ Steps to perform demo converting Cloud Failover Extention (CFE) deployed via Clo
 1. Must have the following applications installed to utilize automation
     * Python
     * Terraform
+        * Install terraform: https://learn.hashicorp.com/tutorials/terraform/install-cli
 2. AWS Enviornment for Demo
 
 
