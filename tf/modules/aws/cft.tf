@@ -18,6 +18,7 @@ resource "aws_cloudformation_stack" "network" {
   parameters = {
     uniqueString             = "f5demo"
     vpcId                    = aws_vpc.security.id
+    vpcCidr                  = aws_vpc.security.cidr_block
     bigIpMgmtSubnetId01      = aws_subnet.management-a.id
     bigIpMgmtSubnetId02      = aws_subnet.management-b.id
     bigIpExternalSubnetId01  = aws_subnet.external-a.id
@@ -31,12 +32,13 @@ resource "aws_cloudformation_stack" "network" {
     bigIpInternalSelfIp01    = "10.1.5.11"
     bigIpInternalSelfIp02    = "10.1.6.11"
     bigIpExternalVip01       = "10.1.3.110"
-    bigIpExternalVip02       = "110.1.4.110"
+    bigIpExternalVip02       = "10.1.4.110"
     bigIpPeerAddr            = "10.1.1.11"
     cfeVipTag                = "10.1.3.110,10.1.4.110"
     restrictedSrcAddressMgmt = "10.0.0.0/8"
     restrictedSrcAddressApp  = "0.0.0.0/0"
     provisionPublicIpMgmt    = "false"
+    provisionPublicIpVip     = "true"
     secretArn                = aws_secretsmanager_secret.bigip-password.arn
     sshKey                   = var.aws_key_pair_name
     cfeTag                   = "bigip_high_availability_solution"
