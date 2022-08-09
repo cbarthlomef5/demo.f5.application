@@ -13,3 +13,7 @@ variable "bigip_a_mgmt_ip" {
 variable "webserver_pool_nodes" {
   type = list
 }
+
+variable "bigip_pw_arn" {
+  
+}
