@@ -1,4 +1,4 @@
-sleep 60
+sleep 120
 
 if exist %homedrive%%homepath%\.ssh\ (
     copy C:\temp\id_rsa %homedrive%%homepath%\.ssh\id_rsa
@@ -6,3 +6,5 @@ if exist %homedrive%%homepath%\.ssh\ (
     mkdir %homedrive%%homepath%\.ssh
     copy C:\temp\id_rsa %homedrive%%homepath%\.ssh\id_rsa
 )
+
+choco install postman

@@ -13,17 +13,6 @@ $LocalTempDir = $env:TEMP; $ChromeInstaller = "ChromeInstaller.exe"; (new-object
 # Install Chocolatey
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(‘https://chocolatey.org/install.ps1’))
 choco feature enable -n allowGlobalConfirmation
-# Install Postman
-choco install postman
-# Copy Postman shortcut to public desktop
-$TargetFile = "C:\Users\Administrator\AppData\Local\Postman\Postman.exe"
-$ShortcutFile = "$env:Public\Desktop\Postman.lnk"
-$WScriptShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
-$Shortcut.TargetPath = $TargetFile
-$Shortcut.WorkingDirectory = "C:\Users\Administrator\AppData\Local\Postman\Postman.exe"
-$Shortcut.Start
-$Shortcut.Save()
 
 # Create temp directory
 New-Item -Path 'C:\temp' -ItemType Directory
