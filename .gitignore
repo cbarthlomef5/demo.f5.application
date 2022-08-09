@@ -4,7 +4,7 @@ python/*
 .terraform/
 */.terraform.lock.*
 tmp/
-bigip_json.json
+as3_template.json
 
 # Compiled source #
 ###################
