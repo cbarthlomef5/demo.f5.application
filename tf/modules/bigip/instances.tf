@@ -25,17 +25,16 @@ resource "aws_instance" "terraform_host" {
     user = "ec2-user"
     private_key = file("~/.ssh/demo_id_rsa")
   }
-/*
-  provisioner "local-exec" {
-    command = "python ./modules/bigip/scripts/createAS3.py '${var.bigip_mgmt_ip}' '${var.bigip_webserver_pool}'"
-  }
-*/
+  
   provisioner "file" {
     source = "./modules/bigip/as3"
     destination = "/home/ec2-user/tf"
   }
 
   provisioner "remote-exec" {
-    script = "./modules/bigip/as3/terraform.sh"
+    inline = [
+      "chmod +x /home/ec2-user/tf/terraform.sh",
+      "/home/ec2-user/tf/terraform.sh"
+    ]
   }
 }
