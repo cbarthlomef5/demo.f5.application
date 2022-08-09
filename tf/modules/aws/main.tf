@@ -76,8 +76,3 @@ resource "aws_subnet" "internal-b" {
     Name = "security-internal-b-sub"
   }
 }
-
-resource "local_file" "bigip_json" {
-  content = local.bigip_json
-  filename = "./modules/bigip/as3/bigip_json.json"
-}

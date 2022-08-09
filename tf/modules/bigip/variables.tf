@@ -5,3 +5,11 @@ variable "management_subnet" {
 variable "external_subnet" {
   type = string
 }
+
+variable "bigip_a_mgmt_ip" {
+  type = string
+}
+
+variable "webserver_pool_nodes" {
+  type = list
+}

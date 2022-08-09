@@ -1,3 +1,3 @@
 locals {
-  bigip_env_json = jsondecode(file("./modules/bigip/as3/bigip_json.json"))
+  as3_declaration_file_template = jsonencode(file("./modules/bigip/as3_template.json"))
 }
