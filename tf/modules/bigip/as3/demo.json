@@ -1,3 +1,0 @@
-{
-    "bigip_a_mgmt_ip":"${bigip_mgmt_ip}"
-}
