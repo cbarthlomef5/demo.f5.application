@@ -31,7 +31,7 @@ Steps to perform demo converting Cloud Failover Extention (CFE) deployed via Clo
 4. Generate new private key for SSH connections into AWS resources
     * <b>Strongly recomended to use a key not used for other purposes! Key will be copied to Bastion host for Demo purposes! Use ssh-keygen or Putty to create new keypair</b>
     * Save SSH key in Home directory as "~/.ssh/demo_id_rsa.pub"
-    * Can update variables.tf file to point to SSH key if stored in different location or named differently
-5. Run Terraform Plan command to validate UDF environment is fully spun up and credentials are in appropriate location
-6. Run Terraform Apply to deploy AWS environment and CloudFormation Template
-    1. Deployment creates new AWS environment, BigIPs, and bastion host for connections
+5. Open preferred terminal and navigate to "tf" folder
+6. Run command "./deployDemo.sh" from terminal window
+    1. Script runs necessary Terraform commands to initialize and deploy Demo environment
+    2. Deployment creates necessary AWS environment resources, BigIPs, and bastion host for connections to internal resources

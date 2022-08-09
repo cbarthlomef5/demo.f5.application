@@ -10,4 +10,8 @@ module "bigip_setup" {
     bigip_a_mgmt_ip = module.aws_infrastructure.bigip_a_mgmt_ip
     webserver_pool_nodes = module.aws_infrastructure.webserver_pool_nodes
     bigip_pw_arn = module.aws_infrastructure.bigip_pw_arn
+
+    depends_on = [
+      module.aws_infrastructure
+    ]
 }
