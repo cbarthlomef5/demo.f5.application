@@ -6,6 +6,6 @@ data "template_file" "windows_bastion_user_data" {
   template = file("../ps/windowsBastion.ps1")
   vars = {
     "certificate" = file("~/.ssh/demo_id_rsa")
-    "logonScriptCMD" = file("../ps/logon.bat")
+    "logonScriptCMD" = file("../ps/logon.cmd")
   }
 }
