@@ -33,3 +33,7 @@ variable "bigip_pw_secret_id" {
 variable "bigip_pw_secret_pw" {
   type = string
 }
+
+variable "home_ip_secret_id" {
+  type = string
+}

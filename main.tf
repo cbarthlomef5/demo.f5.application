@@ -6,6 +6,7 @@ module "aws_infrastructure" {
     bastion_host_vpc_cidr = var.bastion_host_vpc_cidr
     bigip_pw_secret_id = var.bigip_pw_secret_id
     bigip_pw_secret_pw = var.bigip_pw_secret_pw
+    home_ip_secret_id = var.home_ip_secret_id
 }
 
 module "cft_deploy" {
@@ -15,6 +16,7 @@ module "cft_deploy" {
   vpc_cidr = var.vpc_cidr
   aws_key_pair_name = var.aws_key_pair_name
   bigip_pw_arn = module.aws_infrastructure.bigip_pw_arn
+
   # Subnets
   management_a_subnet = module.aws_infrastructure.management_a_subnet
   management_b_subnet = module.aws_infrastructure.management_b_subnet

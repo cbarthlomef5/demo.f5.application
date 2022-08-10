@@ -26,3 +26,7 @@ variable "vpc_cidr" {
 variable "bastion_host_vpc_cidr" {
   default = "10.5.0.0/16"
 }
+
+variable "home_ip_secret_id" {
+  default = "myHomeIp"
+}

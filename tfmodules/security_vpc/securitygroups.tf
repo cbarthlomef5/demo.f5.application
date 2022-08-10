@@ -29,11 +29,19 @@ resource "aws_default_security_group" "default" {
   }
 
   ingress {
-    description = "All inbound from My IP"
+    description = "All inbound from My IP Dynamic"
     from_port = 0
     to_port = 0
     protocol = "-1"
     cidr_blocks = ["${data.external.myipaddr.result.ip}/32"]
+  }
+
+  ingress {
+    description = "All inbound from My IP Dynamic Static"
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["${local.home_ip}/32"]
   }
 
   egress {
