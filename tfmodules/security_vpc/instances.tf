@@ -1,4 +1,8 @@
 resource "aws_instance" "webserver-aza" {
+  depends_on = [
+    aws_nat_gateway.ngw
+  ]
+
   count = var.webserver_count
   ami = var.aws_ec2_ami
   instance_type = var.aws_instance_size
@@ -15,6 +19,10 @@ resource "aws_instance" "webserver-aza" {
 }
 
 resource "aws_instance" "webserver-azb" {
+  depends_on = [
+    aws_nat_gateway.ngw
+  ]
+  
   count = var.webserver_count
   ami = var.aws_ec2_ami
   instance_type = var.aws_instance_size

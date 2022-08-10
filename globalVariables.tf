@@ -1,6 +1,6 @@
 variable "webserver_count" {
   # Will deploy this number of instances PER AZ!!
-  default = 2
+  default = 1
 }
 
 variable "bigip_pw_secret_id" {
