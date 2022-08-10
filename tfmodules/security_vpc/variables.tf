@@ -25,3 +25,11 @@ variable "aws_key_pair_name" {
 variable "bastion_host_vpc_cidr" {
   type = string
 }
+
+variable "bigip_pw_secret_id" {
+  type = string
+}
+
+variable "bigip_pw_secret_pw" {
+  type = string
+}

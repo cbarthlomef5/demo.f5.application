@@ -3,13 +3,12 @@ variable "webserver_count" {
   default = 2
 }
 
-resource "aws_secretsmanager_secret" "bigip-password" {
-  name = "mySecretId"
+variable "bigip_pw_secret_id" {
+  default = "mySecretId"
 }
 
-resource "aws_secretsmanager_secret_version" "bigip-password" {
-  secret_id     = aws_secretsmanager_secret.bigip-password.id
-  secret_string = "admin.F5demo.com"
+variable "bigip_pw_secret_pw" {
+  default = "admin.F5demo.com"
 }
 
 variable "aws_key_pair_name" {
