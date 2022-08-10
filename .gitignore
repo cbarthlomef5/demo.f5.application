@@ -3,6 +3,8 @@ python/
 python/*
 .terraform/
 */.terraform.lock.*
+tmp/
+as3_declaration.json
 
 # Compiled source #
 ###################

@@ -12,7 +12,9 @@ Steps to perform demo converting Cloud Failover Extention (CFE) deployed via Clo
 1. Must have the following applications installed to utilize automation
     * Python
     * Terraform
+        * Install terraform: https://learn.hashicorp.com/tutorials/terraform/install-cli
 2. AWS Enviornment for Demo
+
 
 
 # Demo Steps
@@ -26,9 +28,10 @@ Steps to perform demo converting Cloud Failover Extention (CFE) deployed via Clo
 3. Copy files from "aws" folder to "~/.aws" folder and update with correct API Key and Secret
     * Folder should be located in current user's home directory
     * API Key and Secret can be found on the "Cloud Accounts" tab of the UDF deployment
-4. Generate new private key or use existing key for SSH connections into AWS resources
-    * Save SSH key in Home directory as "~/.ssh/id_rsa.pub"
-    * Can update variables.tf file to point to SSH key if stored in different location or named differently
-5. Run Terraform Plan command to validate UDF environment is fully spun up and credentials are in appropriate location
-6. Run Terraform Apply to deploy AWS environment and CloudFormation Template
-7. Wait for CloudFormation Template to fully deploy
+4. Generate new private key for SSH connections into AWS resources
+    * <b>Strongly recomended to use a key not used for other purposes! Key will be copied to Bastion host for Demo purposes! Use ssh-keygen or Putty to create new keypair</b>
+    * Save SSH key in Home directory as "~/.ssh/demo_id_rsa.pub"
+5. Open preferred terminal and navigate to "tf" folder
+6. Run command "./deployDemo.sh" from terminal window
+    1. Script runs necessary Terraform commands to initialize and deploy Demo environment
+    2. Deployment creates necessary AWS environment resources, BigIPs, and bastion host for connections to internal resources
