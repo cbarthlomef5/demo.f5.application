@@ -17,3 +17,7 @@ output "webserver_pool_nodes" {
 output "bigip_pw_arn" {
   value = aws_secretsmanager_secret.bigip-password.arn
 }
+
+output "aws_key_pair_name" {
+  value = var.aws_key_pair_name
+}

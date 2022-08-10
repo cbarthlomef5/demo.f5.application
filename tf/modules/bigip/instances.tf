@@ -1,24 +1,57 @@
+resource "aws_instance" "windows_bastion" {
+  ami = var.windows_bastion_ami
+  instance_type = "t2.medium"
+  key_name      = var.aws_key_pair_name
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+
+  tags = {
+    Name = "windows_bastion_host"
+  } 
+
+  user_data = data.template_file.windows_bastion_user_data.rendered
+
+  network_interface {
+    network_interface_id = aws_network_interface.windows_bastion.id
+    device_index = 0
+  }
+
+  connection {
+    host = self.public_ip
+    type = "ssh"
+    user = "demo"
+    private_key = file("~/.ssh/demo_id_rsa")
+    target_platform = "windows"
+    timeout = "6m"
+  }
+  provisioner "file" {
+    source = "./modules/bigip/as3"
+    destination = "C:\temp\tf"
+  }
+/*
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x C:\temp\tf\terraform.sh",
+      "C:\temp\tf\terraform.sh"
+    ]
+  }*/
+}
+
+
 resource "aws_instance" "terraform_host" {
   ami = "ami-0cea098ed2ac54925"
   instance_type = "t2.micro"
-  key_name      = "demo"
+  key_name      = var.aws_key_pair_name
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
-
-  network_interface {
-    network_interface_id = aws_network_interface.terraform_host_public.id
-    device_index         = 0
-  }
-
-  network_interface {
-    network_interface_id = aws_network_interface.terraform_host_private.id
-    device_index         = 1
-  }
-
   tags = {
     Name = "terraform_host"
   } 
 
   user_data = file("../bash/bootstrapTerraform.sh")
+
+  network_interface {
+    network_interface_id = aws_network_interface.terraform_host.id
+    device_index = 0
+  }
 
   connection {
     host = self.public_ip

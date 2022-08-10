@@ -1,21 +1,28 @@
 <powershell>
 # Create new local user and add to administrator group
-$password = ConvertTo-SecureString "Wind0wsS3rverSecure!" -AsPlainText -Force
+$password = ConvertTo-SecureString "${userpassword}" -AsPlainText -Force
 $username = "demo"
 New-LocalUser $username -Password $password -FullName "demo f5"
 Add-LocalGroupMember -Group "Administrators" -Member $username
 
-# Install applications
-Set-ItemProperty -Path HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU -Name UseWUServer -Value 0
-Restart-Service -Name wuauserv -Force
-# Install Chrome
-$LocalTempDir = $env:TEMP; $ChromeInstaller = "ChromeInstaller.exe"; (new-object    System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', "$LocalTempDir\$ChromeInstaller"); & "$LocalTempDir\$ChromeInstaller" /silent /install; $Process2Monitor =  "ChromeInstaller"; Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name; If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$ChromeInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)
-# Install Chocolatey
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(‘https://chocolatey.org/install.ps1’))
-choco feature enable -n allowGlobalConfirmation
-
 # Create temp directory
 New-Item -Path 'C:\temp' -ItemType Directory
+
+# Install the OpenSSH Server
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+# Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
+if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+    Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..."
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+} else {
+    Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
+}
+New-Item -Path 'C:\ProgramData\ssh\sshd_config' -ItemType File -Value "${sshd_config}" -Force
+New-Item -Path 'C:\temp\authorized_keys' -ItemType File -Value "${pubcert}" -Force
+
+# Start the sshd service
+Start-Service sshd
+Set-Service -Name sshd -StartupType 'Automatic'
 
 # Copy certificate to temp directory
 New-Item -Path 'C:\temp\id_rsa' -ItemType File -Value "${certificate}" -Force
@@ -31,4 +38,15 @@ $Computer = [adsi]"WinNT://$ComputerName"
 $user = $Computer.psbase.Children.Find($username)
 $user.LoginScript = ".\logon.cmd"
 $user.SetInfo()
+
+# Install applications
+Set-ItemProperty -Path HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU -Name UseWUServer -Value 0
+Restart-Service -Name wuauserv -Force
+# Install Chocolatey
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(‘https://chocolatey.org/install.ps1’))
+choco feature enable -n allowGlobalConfirmation
+# Install terraform
+choco install terraform
+# Install Chrome
+$LocalTempDir = $env:TEMP; $ChromeInstaller = "ChromeInstaller.exe"; (new-object    System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', "$LocalTempDir\$ChromeInstaller"); & "$LocalTempDir\$ChromeInstaller" /silent /install; $Process2Monitor =  "ChromeInstaller"; Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name; If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$ChromeInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)
 </powershell>
