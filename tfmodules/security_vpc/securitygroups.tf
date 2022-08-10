@@ -1,5 +1,5 @@
 resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.security.id
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     description = "All inbound from VPC"
@@ -14,7 +14,15 @@ resource "aws_default_security_group" "default" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = [aws_vpc.security.cidr_block]
+    cidr_blocks = [aws_vpc.vpc.cidr_block]
+  }
+
+  ingress {
+    description = "All inbound from Bastion Host VPC"
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [var.bastion_host_vpc_cidr]
   }
 
   ingress {
