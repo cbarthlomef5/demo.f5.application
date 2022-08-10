@@ -21,3 +21,7 @@ output "bigip_pw_arn" {
 output "aws_key_pair_name" {
   value = var.aws_key_pair_name
 }
+
+output "floating_eip" {
+  value = aws_eip.floating_eip.id
+}

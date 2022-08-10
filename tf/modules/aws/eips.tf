@@ -4,3 +4,10 @@ resource "aws_eip" "ngw" {
     "Name" = "ngw_eip"
   }
 }
+
+resource "aws_eip" "floating_eip" {
+  vpc      = true
+  tags = {
+    "Name" = "floating_eip"
+  }
+}

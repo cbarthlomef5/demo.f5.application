@@ -2,14 +2,6 @@ resource "aws_network_interface" "terraform_host" {
   subnet_id   = var.external_subnet
 
   tags = {
-    Name = "terraform_hostnetwork_interface"
-  }
-}
-
-resource "aws_network_interface" "windows_bastion" {
-  subnet_id   = var.external_subnet
-
-  tags = {
-    Name = "windows_bastion_network_interface"
+    Name = "terraform_host_network_interface"
   }
 }
