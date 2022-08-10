@@ -14,26 +14,6 @@ resource "aws_instance" "windows_bastion" {
     network_interface_id = aws_network_interface.windows_bastion.id
     device_index = 0
   }
-
-  connection {
-    host = self.public_ip
-    type = "ssh"
-    user = "demo"
-    private_key = file("~/.ssh/demo_id_rsa")
-    target_platform = "windows"
-    timeout = "6m"
-  }
-  provisioner "file" {
-    source = "./modules/bigip/as3"
-    destination = "C:\temp\tf"
-  }
-/*
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x C:\temp\tf\terraform.sh",
-      "C:\temp\tf\terraform.sh"
-    ]
-  }*/
 }
 
 

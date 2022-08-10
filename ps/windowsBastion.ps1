@@ -8,22 +8,6 @@ Add-LocalGroupMember -Group "Administrators" -Member $username
 # Create temp directory
 New-Item -Path 'C:\temp' -ItemType Directory
 
-# Install the OpenSSH Server
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-# Confirm the Firewall rule is configured. It should be created automatically by setup. Run the following to verify
-if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
-    Write-Output "Firewall Rule 'OpenSSH-Server-In-TCP' does not exist, creating it..."
-    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
-} else {
-    Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has been created and exists."
-}
-New-Item -Path 'C:\ProgramData\ssh\sshd_config' -ItemType File -Value "${sshd_config}" -Force
-New-Item -Path 'C:\temp\authorized_keys' -ItemType File -Value "${pubcert}" -Force
-
-# Start the sshd service
-Start-Service sshd
-Set-Service -Name sshd -StartupType 'Automatic'
-
 # Copy certificate to temp directory
 New-Item -Path 'C:\temp\id_rsa' -ItemType File -Value "${certificate}" -Force
 
