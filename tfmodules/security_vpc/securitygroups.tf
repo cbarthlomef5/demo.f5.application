@@ -1,7 +1,7 @@
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "${var.vpc_name}-default-sg"
+    Name = "${var.vpc_name_tag}-default-sg"
   }
 
   ingress {
