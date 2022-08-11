@@ -8,7 +8,11 @@ terraform {
       source  = "hashicorp/http"
       version = "2.2.0"
     }
+    bigip = {
+      source = "F5Networks/bigip"
+    }
   }
+  required_version = ">= 1.0"
 }
 
 provider "aws" {
@@ -21,4 +25,10 @@ provider "aws" {
       Application = "CFE Public to Private Converstion"
     }
   }
+}
+
+provider "bigip" {
+  address  = module.cft_deploy.bigip_a_mgmt_ip
+  username = "admin"
+  password = data.aws_secretsmanager_secret_version.bigip_pw_secret_current_version.secret_string
 }
