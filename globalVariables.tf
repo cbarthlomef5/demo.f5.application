@@ -3,7 +3,7 @@ variable "aws_key_pair_name" {
 }
 
 variable "nginx_webserver_count" {
-  default = 4
+  default = 2
 }
 
 variable "bigip_pw_secret_name" {
