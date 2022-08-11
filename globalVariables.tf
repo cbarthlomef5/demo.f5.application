@@ -3,5 +3,5 @@ variable "aws_key_pair_name" {
 }
 
 variable "nginx_webserver_count" {
-  default = 0
+  default = 4
 }
