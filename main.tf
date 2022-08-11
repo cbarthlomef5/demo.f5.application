@@ -1,14 +1,12 @@
-module "aws_infrastructure" {
-    source = "./tfmodules/security_vpc"
+module "webserver_deploy" {
+  source = "./tfmodules/webservers"
 
-    webserver_count = var.webserver_count    
-    aws_key_pair_name = var.aws_key_pair_name
-    bastion_host_vpc_cidr = var.bastion_host_vpc_cidr
-    bigip_pw_secret_id = var.bigip_pw_secret_id
-    bigip_pw_secret_pw = var.bigip_pw_secret_pw
-    home_ip_secret_id = var.home_ip_secret_id
+  servers_vpc_id = local.servers_vpc_id
+  aws_key_pair_name = var.aws_key_pair_name
+  nginx_webserver_count = var.nginx_webserver_count
 }
 
+/*
 module "cft_deploy" {
   source = "./tfmodules/cftDeploy"
 
