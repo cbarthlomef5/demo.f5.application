@@ -22,6 +22,6 @@ data "aws_vpcs" "workstations_vpc" {
   }
 }
 
-data "aws_secretsmanager_secret" "bigip_pw_arn" {
-  name = "mySecretId"
+data "aws_secretsmanager_secret" "bigip_pw_name" {
+  name = var.bigip_pw_secret_name
 }

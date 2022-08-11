@@ -6,5 +6,4 @@ variable "aws_key_pair_name" {
 }
 
 variable "bigip_pw_arn" {
-  type = string
 }

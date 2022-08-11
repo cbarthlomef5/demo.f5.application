@@ -11,16 +11,15 @@ module "cft_deploy" {
   source = "./tfmodules/cftDeploy"
 
   aws_key_pair_name = var.aws_key_pair_name
-  bigip_admin_pw = data.aws_secretsmanager_secret.bigip_pw_secret
+  bigip_pw_arn = data.aws_secretsmanager_secret.bigip_pw_name.arn
 }
-/*
+
 module "bigip_setup" {
-    source = "./tfmodules/bigip"
+  source = "./tfmodules/bigip"
 
-    bigip_admin_pw = data.aws_secretsmanager_secret.bigip_pw_secret
+  aws_key_pair_name = var.aws_key_pair_name
+  bigip_pw_arn = data.aws_secretsmanager_secret.bigip_pw_name.arn
+  bigip_a_mgmt_ip = module.cft_deploy.bigip_a_mgmt_ip
+  webserver_pool_nodes = module.webserver_deploy.webserver_pool_nodes
 
-    depends_on = [
-      module.cft_deploy
-    ]
 }
-*/

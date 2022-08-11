@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "bigip" {
-  address  = data.aws_cloudformation_stack.bigip_a_mgmt_ip.outputs["bigIpInstanceMgmtPrivateIp01"]
+  address  = var.bigip_a_mgmt_ip
   username = "admin"
   password = local.bigip_pw
 }
