@@ -14,7 +14,6 @@ module "cft_deploy" {
   vpc_cidr = var.vpc_cidr
   aws_key_pair_name = var.aws_key_pair_name
   bigip_pw_arn = module.aws_infrastructure.bigip_pw_arn
-
   # Subnets
   management_a_subnet = module.aws_infrastructure.management_a_subnet
   management_b_subnet = module.aws_infrastructure.management_b_subnet
