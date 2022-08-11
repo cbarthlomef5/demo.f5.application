@@ -28,7 +28,7 @@ provider "aws" {
 }
 
 provider "bigip" {
-  address  = module.cft_deploy.bigip_a_mgmt_ip
+  address  = "10.10.1.11"
   username = "admin"
   password = data.aws_secretsmanager_secret_version.bigip_pw_secret_current_version.secret_string
 }
