@@ -18,7 +18,29 @@
                 "serviceMain": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "10.1.3.110"
+                        "10.10.3.110"
+                    ],
+                    "pool": "web_pool_app1"
+                },
+                "web_pool_app1": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [{
+                        "servicePort": 80,
+                        "serverAddresses": ${webserver_pool_members}
+                    }]
+                }
+            },
+            
+            "Application_2": {
+                "class": "Application",
+                "template": "http",
+                "serviceMain": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "10.10.4.110"
                     ],
                     "pool": "web_pool_app1"
                 },
@@ -34,13 +56,35 @@
                 }
             },
 
-            "serviceMain": {
+            "AlienNetApp1": {
                 "class": "Application",
                 "template": "http",
                 "serviceMain": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "192.168.50.110"
+                    ],
+                    "pool": "web_pool_app2"
+                },
+                "web_pool_app2": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [{
+                        "servicePort": 80,
+                        "serverAddresses": ${webserver_pool_members}
+                    }]
+                }
+            },
+
+            "AlienNetApp2": {
+                "class": "Application",
+                "template": "http",
+                "serviceMain": {
+                    "class": "Service_HTTP",
+                    "virtualAddresses": [
+                        "192.168.50.11"
                     ],
                     "pool": "web_pool_app2"
                 },
