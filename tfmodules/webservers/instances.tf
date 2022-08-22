@@ -11,27 +11,4 @@ resource "aws_instance" "nginx_web_server" {
   }
 
   user_data = file("${path.module}/scripts/bash/bootstrapWebserver.sh")
-
-  connection {
-    type = ssh
-    user = "ec2-user"
-    host = self.private_ip
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo mkdir /var/www/apps"
-    ]
-  }
-
-  provisioner "file" {
-    source = "${path.module}/apps/webpages/"
-    destination = "/var/www/apps"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo systemctl restart nginx"
-    ]
-  }
 }
