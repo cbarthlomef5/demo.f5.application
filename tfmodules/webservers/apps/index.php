@@ -86,7 +86,7 @@
             <div class="alert">
                 <h2>Website Administrator</h2>
                 <div class="content">
-                    <p><?php echo 'Server IP Address: ' . $_SERVER['SERVER_ADDR']; ?></p>
+                    <p><?php echo "Server IP Address: " . $_SERVER["SERVER_ADDR"]; ?></p>
                 </div>
             </div>
 
