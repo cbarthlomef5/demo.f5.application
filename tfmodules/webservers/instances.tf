@@ -10,5 +10,5 @@ resource "aws_instance" "nginx_web_server" {
     "ServerType" = "nginx"
   }
 
-  user_data = file("${path.module}/scripts/bash/bootstrapWebserver.sh")
+  user_data = data.template_file.webserver_configuration.rendered
 }
