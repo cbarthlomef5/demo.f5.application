@@ -86,14 +86,7 @@
             <div class="alert">
                 <h2>Website Administrator</h2>
                 <div class="content">
-                    <p>Server IP Address: <?php $_SERVER['SERVER_ADDR']; ?></p>
-
-                    <p>You should now put your content in a location of
-                    your choice and edit the <tt>root</tt> configuration
-                    directive in the <strong>nginx</strong>
-                    configuration file
-                    <tt>/etc/nginx/nginx.conf</tt>.</p>
-
+                    <p><?php echo 'Server IP Address: ' . $_SERVER['SERVER_ADDR']; ?></p>
                 </div>
             </div>
 
