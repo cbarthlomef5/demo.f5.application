@@ -13,7 +13,7 @@ resource "aws_instance" "nginx_web_server" {
   user_data = file("${path.module}/scripts/bash/bootstrapWebserver.sh")
 
   connection {
-    type = ssh
+    type = "ssh"
     user = "ec2-user"
     host = self.private_ip
   }
