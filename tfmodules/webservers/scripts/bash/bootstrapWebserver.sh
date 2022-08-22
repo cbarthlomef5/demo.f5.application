@@ -15,8 +15,8 @@ yum install php-gd php-mbstring php-xml php-dom php-intl php-simplexml -y
 
 # Create necessary files
 mkdir /var/www/apps
-echo '${app_config}' >> /var/www/apps/index.php
-echo '${nginx_config}' >> /etc/nginx/conf.d/apps.conf
+echo ${app_config} >> /var/www/apps/index.php
+echo ${nginx_config} >> /etc/nginx/conf.d/apps.conf
 
 # Start LEMP
 systemctl start nginx.service
